@@ -3,16 +3,20 @@ title: "p8105_hw1_as6445"
 output: html_document
 date: "2022-09-22"
 ---
+
 # Problem 1
+
+I  will be loading the penguins dataset below. 
+
 ```{r data}
 data("penguins", package = "palmerpenguins")
 ```
 
 The data frame has `r nrow(penguins)` rows. The data frame has `r ncol(penguins)` columns. The column names include species, island, bill length in mm, bill depth in mm, fliper length in mm, body mass in grams, sex, and year. I can take the mean of flipper length which is `r mean(penguins$flipper_length_mm, na.rm=TRUE)`.
 
-# Problem 1
+I will now create a scatterplot showing the relationship between bill length(x) and flipper length(y) using `ggplot`. I used `aes` to assign the x and y-axis. I also included `color=species` to see the points by the species categories. 
 
-Below is the scatterplot showing the relationship between bill length(x) and flipper length(y).
+I will also be saving the scatterplot using `ggsave` to export the plot to a pdf. I have chosen a format of my choice.
 
 ```{r scatterplot}
 library(tidyverse)
@@ -24,29 +28,34 @@ ggsave("penguins.pdf")
 
 # Problem 2
 
-We are creating a data frame down below!
+We are creating a data frame down below! The data frame will include four vectors any uses the `tibble` function. I have assigned random variables to create the character vector and assigned categories of my choice for the factor vector. 
 
 ```{r dataframe}
 hwk_df=
   tibble(
     x=rnorm(n=10),
     y= x>0,
-    z= c("My", "name", "is", "Ayako", "and", "here", "are", "random", "words", "listed"),
-    a= factor(c("high", "medium", "low","high", "medium", "low","high", "medium", "low","high" ))
+    z= c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    w= factor(c("high", "medium", "low","high", "medium", "low","high", "medium", "low","high" ))
   )
 
 hwk_df
 ```
-The mean of the sample is `r mean(pull(hwk_df, x))`. The mean of the sample is `r mean(pull(hwk_df, y))`. The mean of the sample is `r mean(pull(hwk_df, z))`. The mean of the sample is `r mean(pull(hwk_df, a))`.
 
-The code outputs the mean for x which is numerical, and the code also outputs the mean for y which is logical. The code does not output the mean for z and a because the arguments are not numerical or logical.
+The mean of the sample is `r mean(pull(hwk_df, x))`. The mean of the sample is `r mean(pull(hwk_df, y))`. The mean of the sample is `r mean(pull(hwk_df, z))`. The mean of the sample is `r mean(pull(hwk_df, w))`.
 
-# Converting variables from diff types
+The code outputs the mean for x which is numerical, and the code also outputs the mean for y which is logical. The code does not output the mean for z and w because the arguments are not numerical or logical.
+
+## Converting variables from diff types
+
+In a new code chunk, I used `as.numeric`to convert variables from one type to another. 
+
 ```{r convert, results='hide'}
 
 as.numeric(hwk_df$x)
 as.numeric(hwk_df$y)
 as.numeric(hwk_df$z)
-as.numeric(hwk_df$a)
+as.numeric(hwk_df$w)
 ```
-After applying the as.numeric function, x,y, and z outputted numbers. Regarding y and z, the variables were converted into numbers based on the categories. This explains why it is possible to take the mean of a logical variable. However, a did not produce a numeric result and outputted a warning message saying NAs introduced by coercion. 
+
+After applying `as.numeric`, x,y, and z outputted numbers. Regarding y and z, the variables were converted into numbers based on the categories. This explains why it is possible to take the mean of a logical variable. However, w did not produce a numeric result and outputted a warning message saying NAs introduced by coercion. 

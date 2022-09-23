@@ -403,29 +403,29 @@ length(x) and flipper length(y).</p>
   tibble(
     x=rnorm(n=10),
     y= x&gt;0,
-    z= c(&quot;My&quot;, &quot;name&quot;, &quot;is&quot;, &quot;Ayako&quot;, &quot;and&quot;, &quot;here&quot;, &quot;are&quot;, &quot;random&quot;, &quot;words&quot;, &quot;listed&quot;),
-    a= factor(c(&quot;high&quot;, &quot;medium&quot;, &quot;low&quot;,&quot;high&quot;, &quot;medium&quot;, &quot;low&quot;,&quot;high&quot;, &quot;medium&quot;, &quot;low&quot;,&quot;high&quot; ))
+    z= c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;),
+    w= factor(c(&quot;high&quot;, &quot;medium&quot;, &quot;low&quot;,&quot;high&quot;, &quot;medium&quot;, &quot;low&quot;,&quot;high&quot;, &quot;medium&quot;, &quot;low&quot;,&quot;high&quot; ))
   )
 
 hwk_df</code></pre>
 <pre><code>## # A tibble: 10 × 4
-##         x y     z      a     
-##     &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;  &lt;fct&gt; 
-##  1 -0.636 FALSE My     high  
-##  2  1.39  TRUE  name   medium
-##  3 -0.153 FALSE is     low   
-##  4 -0.974 FALSE Ayako  high  
-##  5 -3.15  FALSE and    medium
-##  6 -0.573 FALSE here   low   
-##  7  1.87  TRUE  are    high  
-##  8 -0.855 FALSE random medium
-##  9  1.32  TRUE  words  low   
-## 10 -1.01  FALSE listed high</code></pre>
-<p>The mean of the sample is -0.2788991. The mean of the sample is 0.3.
+##          x y     z     w     
+##      &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;fct&gt; 
+##  1 -0.365  FALSE a     high  
+##  2 -0.867  FALSE b     medium
+##  3  0.580  TRUE  c     low   
+##  4 -1.17   FALSE d     high  
+##  5  0.500  TRUE  e     medium
+##  6 -1.79   FALSE f     low   
+##  7  0.339  TRUE  g     high  
+##  8  0.397  TRUE  h     medium
+##  9  1.01   TRUE  i     low   
+## 10  0.0181 TRUE  j     high</code></pre>
+<p>The mean of the sample is -0.1345361. The mean of the sample is 0.6.
 The mean of the sample is NA. The mean of the sample is NA.</p>
 <p>The code outputs the mean for x which is numerical, and the code also
 outputs the mean for y which is logical. The code does not output the
-mean for z and a because the arguments are not numerical or logical.</p>
+mean for z and w because the arguments are not numerical or logical.</p>
 </div>
 <div id="converting-variables-from-diff-types" class="section level1">
 <h1>Converting variables from diff types</h1>
@@ -433,11 +433,11 @@ mean for z and a because the arguments are not numerical or logical.</p>
 as.numeric(hwk_df$y)
 as.numeric(hwk_df$z)</code></pre>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
-<pre class="r"><code>as.numeric(hwk_df$a)</code></pre>
-<p>After applying the as.numeric function, x and y outputted numbers.
-Regarding z, the variables were converted into numbers based on the
-categories. This explains why it is possible to take the mean of a
-logical variable. However, z and a did not produce a numeric result and
+<pre class="r"><code>as.numeric(hwk_df$w)</code></pre>
+<p>After applying the as.numeric function, x,y, and z outputted numbers.
+Regarding y and z, the variables were converted into numbers based on
+the categories. This explains why it is possible to take the mean of a
+logical variable. However, w did not produce a numeric result and
 outputted a warning message saying NAs introduced by coercion.</p>
 </div>
 

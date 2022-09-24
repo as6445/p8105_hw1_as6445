@@ -1,61 +1,78 @@
 ---
 title: "p8105_hw1_as6445"
-output: html_document
-date: "2022-09-22"
+author: "Ayako Sekiya"
+output: github_document
+date: "2022-09-24"
 ---
 
 # Problem 1
 
 I  will be loading the penguins dataset below. 
 
-```{r data}
+```{r data, message=FALSE}
+library(tidyverse)
 data("penguins", package = "palmerpenguins")
 ```
 
-The data frame has `r nrow(penguins)` rows. The data frame has `r ncol(penguins)` columns. The column names include species, island, bill length in mm, bill depth in mm, fliper length in mm, body mass in grams, sex, and year. I can take the mean of flipper length which is `r mean(penguins$flipper_length_mm, na.rm=TRUE)`.
+The following includes descriptions of the `penguin` dataset:
+
+-The dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns, which means that there are 344 observations and 8 variables. The variable names include species, island, bill length in mm, bill depth in mm, flipper length in mm, body mass in grams, sex, and year of data collection. 
+
+-The mean of flipper length which is `r round(mean(penguins$flipper_length_mm, na.rm=TRUE),2)`.
+
 
 I will now create a scatterplot showing the relationship between bill length(x) and flipper length(y) using `ggplot`. I used `aes` to assign the x and y-axis. I also included `color=species` to see the points by the species categories. 
 
 I will also be saving the scatterplot using `ggsave` to export the plot to a pdf. I have chosen a format of my choice.
 
 ```{r scatterplot}
-library(tidyverse)
-
 ggplot(penguins, aes(x=bill_length_mm,y=flipper_length_mm, color=species))+geom_point()
 
-ggsave("penguins.pdf")
+ggsave("penguins_scatterplot.pdf")
 ```
 
 # Problem 2
 
-We are creating a data frame down below! The data frame will include four vectors any uses the `tibble` function. I have assigned random variables to create the character vector and assigned categories of my choice for the factor vector. 
+We are creating a data frame down below. The data frame will include four vector as listed below:
+  - a random sample of size 10 from a standard Normal distribution
+  - a logical vector indicating whether elements of the sample are greater than 0
+  - a character vector of length 10
+  - a factor vector of length 10, with 3 different factor “levels”
+
+I have assigned random variables to create the character vector and assigned categories of my choice for the factor vector. 
+
+I, then, printed the dataframe to double check if the dataframe was created correctly..
 
 ```{r dataframe}
 hwk_df=
   tibble(
-    x=rnorm(n=10),
-    y= x>0,
-    z= c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
-    w= factor(c("high", "medium", "low","high", "medium", "low","high", "medium", "low","high" ))
+    random=rnorm(n=10),
+    logical= random>0,
+    v_char= c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+    v_fact= factor(c("high", "medium", "low","high", "medium", "low","high", "medium", "low","high" ))
   )
 
 hwk_df
 ```
 
-The mean of the sample is `r mean(pull(hwk_df, x))`. The mean of the sample is `r mean(pull(hwk_df, y))`. The mean of the sample is `r mean(pull(hwk_df, z))`. The mean of the sample is `r mean(pull(hwk_df, w))`.
+I will now try to take the mean of each vector. 
 
-The code outputs the mean for x which is numerical, and the code also outputs the mean for y which is logical. The code does not output the mean for z and w because the arguments are not numerical or logical.
+```{r mean}
+mean(pull(hwk_df, random))
+mean(pull(hwk_df, logical))
+mean(pull(hwk_df, v_char))
+mean(pull(hwk_df, v_fact))
+```
+The code outputs the mean for the random vector, which has a numerical vector. The code also outputs the mean for the logical vector. The code does not output the mean for the character and factor vector. I received an error saying that "argument is not numeric or logical: returning NA."
 
-## Converting variables from diff types
+I then used `as.numeric`to convert variables from one type to another and apply the function to the logical, character, and factor variables. 
 
-In a new code chunk, I used `as.numeric`to convert variables from one type to another. 
-
-```{r convert, results='hide'}
-
-as.numeric(hwk_df$x)
-as.numeric(hwk_df$y)
-as.numeric(hwk_df$z)
-as.numeric(hwk_df$w)
+```{r conversion, results= "hide", warning=FALSE}
+as.numeric(pull(hwk_df, logical))
+as.numeric(pull(hwk_df, v_char))
+as.numeric(pull(hwk_df, v_fact))
 ```
 
-After applying `as.numeric`, x,y, and z outputted numbers. Regarding y and z, the variables were converted into numbers based on the categories. This explains why it is possible to take the mean of a logical variable. However, w did not produce a numeric result and outputted a warning message saying NAs introduced by coercion. 
+After applying `as.numeric`, the factor vector is now able to output values. The values were successfully converted into a numeric value. However, the character value has produced an error message, "NAs introduced by coercion." The character value was not successful in outputting a mean.
+
+The factor vector was unable to calculate a mean with the `pull` function, but we can produce the`mean(as.numeric(pull(hwk_df, v_fact)))` of the factor variable with the `as.numeric` function. From this, it is evident that R is able to produce ordinal values with the `as.numeric` function. However, R was unable to convert the  character variable into an numeric value. 

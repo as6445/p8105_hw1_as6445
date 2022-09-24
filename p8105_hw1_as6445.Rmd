@@ -20,24 +20,18 @@ The following includes descriptions of the `penguin` dataset:
 
 -The mean of flipper length which is `r round(mean(penguins$flipper_length_mm, na.rm=TRUE),2)`.
 
-
-I will now create a scatterplot showing the relationship between bill length(x) and flipper length(y) using `ggplot`. I used `aes` to assign the x and y-axis. I also included `color=species` to see the points by the species categories. 
+I will now create a scatterplot showing the relationship between bill length(x) and flipper length(y) using `ggplot`. I used `aes` to assign the x and y-axis. I also included `color=species` to see the color code the points by the species categories. 
 
 I will also be saving the final scatterplot using `ggsave` to export the plot to a pdf. I have chosen a format of my choice.
 
-```{r scatterplot}
+```{r scatterplot, warning=FALSE, message=FALSE}
 ggplot(penguins, aes(x=bill_length_mm,y=flipper_length_mm, color=species))+geom_point()
-
 ggsave("penguins_scatterplot.pdf")
 ```
 
 # Problem 2
 
-We are creating a data frame down below. The data frame will include four vector as listed below:
-  - a random sample of size 10 from a standard Normal distribution
-  - a logical vector indicating whether elements of the sample are greater than 0
-  - a character vector of length 10
-  - a factor vector of length 10, with 3 different factor “levels”
+We are creating a data frame down below. The data frame will include four vector including :a random sample of size 10 from a standard Normal distribution, a logical vector indicating whether elements of the sample are greater than 0, a character vector of length 10, and a factor vector of length 10, with 3 different factor “levels”
 
 I have assigned random variables to create the character vector and assigned categories of my choice for the factor vector. 
 
@@ -63,7 +57,8 @@ mean(pull(hwk_df, logical))
 mean(pull(hwk_df, v_char))
 mean(pull(hwk_df, v_fact))
 ```
-The code outputs the mean for the random vector, which has a numerical vector. The code also outputs the mean for the logical vector. The code does not output the mean for the character and factor vector. I received an error saying that "argument is not numeric or logical: returning NA."
+
+The code outputs the mean for the random vector, which has numerical values. The code also outputs the mean for the logical vector. The code does not output the mean for the character and factor vector. I received an error saying that "argument is not numeric or logical: returning NA."
 
 I then used `as.numeric`to convert variables from one type to another and apply the function to the logical, character, and factor variables. 
 
@@ -75,4 +70,4 @@ as.numeric(pull(hwk_df, v_fact))
 
 After applying `as.numeric`, the factor vector is now able to output values. The values were successfully converted into a numeric value. However, the character value has produced an error message, "NAs introduced by coercion." The character value was not successful in outputting a mean.
 
-The factor vector was unable to calculate a mean with the `pull` function, but we can produce the`mean(as.numeric(pull(hwk_df, v_fact)))` of the factor variable with the `as.numeric` function. From this, it is evident that R is able to produce ordinal values with the `as.numeric` function. However, R was unable to convert the  character variable into an numeric value. 
+Te factor vector was unable to calculate a mean with the `pull` function, but we can produce the`mean(as.numeric(pull(hwk_df, v_fact)))` of the factor variable with the `as.numeric` function. From this, it is evident that R is able to produce ordinal values with the `as.numeric` function. However, R was unable to convert the  character variable into an numeric value. 

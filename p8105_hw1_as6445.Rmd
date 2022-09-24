@@ -23,7 +23,7 @@ The following includes descriptions of the `penguin` dataset:
 
 I will now create a scatterplot showing the relationship between bill length(x) and flipper length(y) using `ggplot`. I used `aes` to assign the x and y-axis. I also included `color=species` to see the points by the species categories. 
 
-I will also be saving the scatterplot using `ggsave` to export the plot to a pdf. I have chosen a format of my choice.
+I will also be saving the final scatterplot using `ggsave` to export the plot to a pdf. I have chosen a format of my choice.
 
 ```{r scatterplot}
 ggplot(penguins, aes(x=bill_length_mm,y=flipper_length_mm, color=species))+geom_point()
